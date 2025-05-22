@@ -57,3 +57,34 @@ this.setState({blogsData: updateData})
 ```
 Used .map() to transform each object from the API.
 Called this.setState() to store the updated blog data in the component’s state.
+
+-----------
+# 📝 Commit Notes: Show loader while fetching data 
+
+
+✅ Installed and imported a loader component:
+
+API calls take some time to get data from the server.  
+So, it’s good practice to show a loading animation to the user while waiting.  
+
+For this, I used a 3rd party React loader called `react-loader-spinner`.  
+I imported the spinner like this:
+
+```js
+import { TailSpin } from 'react-loader-spinner'
+```
+✅ Then, I used conditional rendering to show either:
+
+* The loader spinner while data is loading (isLoading is true)
+* Or the blog items after data is fetched (isLoading is false)
+
+
+```js
+//Example code:
+{isLoading ? (
+  <TailSpin height={50} width={50} color="blue" ariaLabel="loading" />
+) : (
+  blogsData.map(item => <BlogItem blogData={item} key={item.id} />)
+)}
+
+```

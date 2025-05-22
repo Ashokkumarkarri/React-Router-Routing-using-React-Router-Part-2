@@ -1,3 +1,5 @@
+import {TailSpin} from 'react-loader-spinner'
+
 import {Component} from 'react'
 
 import BlogItem from '../BlogItem'
@@ -24,7 +26,7 @@ import './index.css'
 // ]
 
 class BlogsList extends Component {
-  state = {blogsData: []}
+  state = {blogsData: [], isLoading: true}
 
   componentDidMount() {
     this.getBlogData()
@@ -43,16 +45,18 @@ class BlogsList extends Component {
       author: eachItem.author,
     }))
     console.log(updateData)
-    this.setState({blogsData: updateData})
+    this.setState({blogsData: updateData, isLoading: false})
   }
 
   render() {
-    const {blogsData} = this.state
+    const {blogsData, isLoading} = this.state
     return (
       <div className="blog-list-container">
-        {blogsData.map(item => (
-          <BlogItem blogData={item} key={item.id} />
-        ))}
+        {isLoading ? (
+          <TailSpin height={50} width={50} color="blue" ariaLabel="loading" />
+        ) : (
+          blogsData.map(item => <BlogItem blogData={item} key={item.id} />)
+        )}
       </div>
     )
   }
