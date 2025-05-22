@@ -24,6 +24,16 @@ const blogsData = [
 ]
 
 class BlogsList extends Component {
+  componentDidMount() {
+    this.getBlogData()
+  }
+
+  getBlogData = async () => {
+    const response = await fetch('https://apis.ccbp.in/blogs')
+    const data = await response.json()
+    console.log(data)
+  }
+
   render() {
     return (
       <div className="blog-list-container">
